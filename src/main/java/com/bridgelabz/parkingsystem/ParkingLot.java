@@ -32,6 +32,14 @@ public class ParkingLot {
     }
 
     public boolean unparkCar(Driver driver){
+        String carNumber = driver.carNumber;
+        if(carParkingMap.containsKey(carNumber)){
+            Integer slotNumber = carParkingMap.get(carNumber);
+            freeSpaces[slotNumber] = true;
+            carParkingMap.remove(carNumber);
+            availableCapacity++;
+            return true;
+        }
         return false;
     }
 }
