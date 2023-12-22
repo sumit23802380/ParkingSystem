@@ -35,16 +35,13 @@ public class ParkingLot {
     public boolean parkCar(Driver driver) {
         if (availableCapacity > 0) {
             availableCapacity--;
-            for (int i = 0; i < freeSpaces.length; i++) {
-                if (freeSpaces[i]) {
-                    freeSpaces[i] = false;
-                    carParkingMap.put(driver.carNumber, i);
-                    if (availableCapacity == 0) {
-                        notifyObserversSpaceAvailableBoardSign(false);
-                    }
-                    return true;
-                }
+            int parkingSlot = findParkingSpaceByAttendant();
+            carParkingMap.put(driver.carNumber, parkingSlot);
+            freeSpaces[parkingSlot] = false;
+            if (availableCapacity == 0) {
+                notifyObserversSpaceAvailableBoardSign(false);
             }
+            return true;
         }
         return false;
     }
