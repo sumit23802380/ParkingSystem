@@ -26,21 +26,12 @@ public class ParkingLot {
             freeSpaces[i] = true;
         }
     }
-
-    public void setParkingLotOwner(ParkingLotOwner parkingLotOwner) {
-        observerList.add(parkingLotOwner);
-        if (availableCapacity > 0) {
-            parkingLotOwner.setSpaceAvailableBoarSign(true);
+    public void addObserver(Observer observer){
+        observerList.add(observer);
+        if(availableCapacity > 0){
+            observer.setSpaceAvailableBoarSign(true);
         }
     }
-
-    public void setAirportSecurityPersonal(AirportSecurityPersonal airportSecurityPersonal){
-        observerList.add(airportSecurityPersonal);
-        if (availableCapacity > 0) {
-            airportSecurityPersonal.setSpaceAvailableBoarSign(true);
-        }
-    }
-
     public boolean parkCar(Driver driver) {
         if (availableCapacity > 0) {
             availableCapacity--;
@@ -74,7 +65,7 @@ public class ParkingLot {
     }
 
     private void notifyObserversSpaceAvailableBoardSign(boolean value) {
-        for(Observer observer : observerList){
+        for (Observer observer : observerList) {
             observer.setSpaceAvailableBoarSign(value);
         }
     }

@@ -1,5 +1,6 @@
 package com.bridgelabz.parkingsystem;
 
+import com.bridgelabz.parkingsystem.observers.Observer;
 import com.bridgelabz.parkingsystem.observers.implementations.AirportSecurityPersonal;
 import com.bridgelabz.parkingsystem.observers.implementations.ParkingLotOwner;
 import org.junit.Before;
@@ -9,15 +10,15 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class ParkingLotTest {
     ParkingLot parkingLot;
-    ParkingLotOwner parkingLotOwner;
-    AirportSecurityPersonal airportSecurityPersonal;
+    Observer parkingLotOwner;
+    Observer airportSecurityPersonal;
     @Before
     public void setUp() {
         parkingLotOwner = new ParkingLotOwner();
         airportSecurityPersonal = new AirportSecurityPersonal();
         parkingLot = new ParkingLot(1);
-        parkingLot.setParkingLotOwner(parkingLotOwner);
-        parkingLot.setAirportSecurityPersonal(airportSecurityPersonal);
+        parkingLot.addObserver(parkingLotOwner);
+        parkingLot.addObserver(airportSecurityPersonal);
     }
     @Test
     public void testParkCar() {
