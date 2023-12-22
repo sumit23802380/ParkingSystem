@@ -1,18 +1,33 @@
 package com.bridgelabz.parkingsystem;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class ParkingLot {
     public int totalCapacity;
     public int availableCapacity;
+    private boolean[] freeSpaces;
+    public Map<String , Integer> carParkingMap;
     ParkingLot(int totalCapacity){
         this.totalCapacity = totalCapacity;
+        this.availableCapacity = totalCapacity;
+        this.freeSpaces = new boolean[totalCapacity];
+        this.carParkingMap = new HashMap<>();
+        for(int i=0;i<totalCapacity;i++){
+            freeSpaces[i] = true;
+        }
     }
     public boolean parkCar(Driver driver){
-        return true;
-    }
-    public int getTotalCapacity(){
-        return this.totalCapacity;
-    }
-    public int getAvailableCapacity(){
-        return this.availableCapacity;
+        if(availableCapacity > 0){
+            availableCapacity--;
+            for(int i=0;i<freeSpaces.length;i++){
+                if(freeSpaces[i]){
+                    freeSpaces[i] = false;
+                    carParkingMap.put(driver.carNumber , i);
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }
