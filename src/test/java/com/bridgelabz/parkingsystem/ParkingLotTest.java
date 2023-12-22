@@ -60,7 +60,7 @@ public class ParkingLotTest {
     }
 
     @Test
-    public void findParkingSpaceByAttendant() {
+    public void testFindParkingSpaceByAttendant() {
         parkingLot = new ParkingLot(2);
         Driver driver1 = new Driver("Sumit" , "DR2380" , "1234567890");
         int parkingSlot = parkingLot.findParkingSpaceByAttendant();
@@ -72,5 +72,17 @@ public class ParkingLotTest {
         assertEquals(1 , parkingSlot);
         parkingSlot = parkingLot.findParkingSpaceByAttendant();
         assertEquals(-1 , parkingSlot);
+    }
+
+    @Test
+    public void testFindParkedCarSlotByDriver() {
+        parkingLot = new ParkingLot(1);
+        Driver driver1 = new Driver("Sumit" , "DR2380" , "1234567890");
+        parkingLot.parkCar(driver1);
+        int carParkedSlot = parkingLot.findParkedCarSlotByDriver(driver1);
+        assertEquals(0 , carParkedSlot);
+        Driver driver2 = new Driver("Amit" , "KC1703" , "7894561230");
+        carParkedSlot = parkingLot.findParkedCarSlotByDriver(driver2);
+        assertEquals(-1 , carParkedSlot);
     }
 }

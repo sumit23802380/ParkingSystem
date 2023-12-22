@@ -54,6 +54,9 @@ public class ParkingLot {
         }
         return -1;
     }
+    public int findParkedCarSlotByDriver(Driver driver) {
+        return 0;
+    }
 
     public boolean unparkCar(Driver driver) {
         String carNumber = driver.carNumber;
