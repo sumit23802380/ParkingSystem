@@ -7,6 +7,15 @@ public class ParkingLot {
     public int totalCapacity;
     public int availableCapacity;
     private boolean[] freeSpaces;
+
+    public void setParkingLotOwner(ParkingLotOwner parkingLotOwner) {
+        this.parkingLotOwner = parkingLotOwner;
+        if(availableCapacity > 0){
+            parkingLotOwner.setSpaceAvailableBoarSign(true);
+        }
+    }
+
+    private ParkingLotOwner parkingLotOwner;
     public Map<String , Integer> carParkingMap;
     ParkingLot(int totalCapacity){
         this.totalCapacity = totalCapacity;
@@ -24,6 +33,9 @@ public class ParkingLot {
                 if(freeSpaces[i]){
                     freeSpaces[i] = false;
                     carParkingMap.put(driver.carNumber , i);
+                    if(availableCapacity == 0){
+                        parkingLotOwner.setSpaceAvailableBoarSign(false);
+                    }
                     return true;
                 }
             }
@@ -38,6 +50,9 @@ public class ParkingLot {
             freeSpaces[slotNumber] = true;
             carParkingMap.remove(carNumber);
             availableCapacity++;
+            if(availableCapacity > 0){
+                parkingLotOwner.setSpaceAvailableBoarSign(true);
+            }
             return true;
         }
         return false;

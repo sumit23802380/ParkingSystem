@@ -7,14 +7,16 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class ParkingLotTest {
     ParkingLot parkingLot;
+    ParkingLotOwner parkingLotOwner;
     @Before
     public void setUp() {
-
+        parkingLotOwner = new ParkingLotOwner();
+        parkingLot = new ParkingLot(1);
+        parkingLot.setParkingLotOwner(parkingLotOwner);
     }
 
     @Test
     public void testParkCar() {
-        parkingLot = new ParkingLot(1);
         Driver driver1 = new Driver("Sumit" , "DR2380" , "1234567890");
         boolean isCarParkedForDriver1 = parkingLot.parkCar(driver1);
         assertTrue(isCarParkedForDriver1);
@@ -25,7 +27,7 @@ public class ParkingLotTest {
 
     @Test
     public void testUnparkCar(){
-        parkingLot = new ParkingLot(1);
+
         Driver driver1 = new Driver("Sumit" , "DR2380" , "1234567890");
         parkingLot.parkCar(driver1);
         boolean isCarUnparkedForDriver1 = parkingLot.unparkCar(driver1);
@@ -36,10 +38,7 @@ public class ParkingLotTest {
 
     @Test
     public void testBoardSignParkingOwnerAboutSpaceAvailability(){
-        parkingLot = new ParkingLot(1);
-        ParkingLotOwner parkingLotOwner = new ParkingLotOwner();
         assertTrue(parkingLotOwner.getSpaceAvailableBoardSign());
-        parkingLot = new ParkingLot(1);
         Driver driver1 = new Driver("Sumit" , "DR2380" , "1234567890");
         parkingLot.parkCar(driver1);
         assertFalse(parkingLotOwner.getSpaceAvailableBoardSign());
