@@ -50,7 +50,12 @@ public class ParkingLot {
     }
 
     public int findParkingSpaceByAttendant() {
-        return 0;
+        for(int i=0;i<freeSpaces.length;i++){
+            if(freeSpaces[i]){
+                return i;
+            }
+        }
+        return -1;
     }
 
     public boolean unparkCar(Driver driver) {

@@ -68,6 +68,7 @@ public class ParkingLotTest {
         assertEquals(0 , parkingSlot);
         Driver driver2 = new Driver("Amit" , "KC1703" , "7894561230");
         parkingSlot = parkingLot.findParkingSpaceByAttendant();
+        parkingLot.parkCar(driver2);
         assertEquals(1 , parkingSlot);
         parkingSlot = parkingLot.findParkingSpaceByAttendant();
         assertEquals(-1 , parkingSlot);
