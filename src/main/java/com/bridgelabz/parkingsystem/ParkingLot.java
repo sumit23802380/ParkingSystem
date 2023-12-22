@@ -30,4 +30,8 @@ public class ParkingLot {
         }
         return false;
     }
+
+    public boolean unparkCar(Driver driver){
+        return false;
+    }
 }
