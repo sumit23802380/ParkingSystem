@@ -33,4 +33,17 @@ public class ParkingLotTest {
         isCarUnparkedForDriver1 = parkingLot.unparkCar(driver1);
         assertFalse(isCarUnparkedForDriver1);
     }
+
+    @Test
+    public void testBoardSignParkingOwnerAboutSpaceAvailability(){
+        parkingLot = new ParkingLot(1);
+        ParkingLotOwner parkingLotOwner = new ParkingLotOwner();
+        assertTrue(parkingLotOwner.getSpaceAvailableBoardSign());
+        parkingLot = new ParkingLot(1);
+        Driver driver1 = new Driver("Sumit" , "DR2380" , "1234567890");
+        parkingLot.parkCar(driver1);
+        assertFalse(parkingLotOwner.getSpaceAvailableBoardSign());
+        parkingLot.unparkCar(driver1);
+        assertTrue(parkingLotOwner.getSpaceAvailableBoardSign());
+    }
 }
