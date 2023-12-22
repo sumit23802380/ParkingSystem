@@ -44,7 +44,9 @@ public class ParkingLotTest {
         Driver driver1 = new Driver("Sumit" , "DR2380" , "1234567890");
         parkingLot.parkCar(driver1);
         assertFalse(parkingLotOwner.getSpaceAvailableBoardSign());
+        // after unpark the car space available
         parkingLot.unparkCar(driver1);
+        // after space available , so board sign is true
         assertTrue(parkingLotOwner.getSpaceAvailableBoardSign());
     }
     @Test
