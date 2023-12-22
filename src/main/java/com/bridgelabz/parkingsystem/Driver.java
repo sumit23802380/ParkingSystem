@@ -10,5 +10,4 @@ public class Driver {
         this.carNumber = carNumber;
         this.contactNumber = contactNumber;
     }
-
 }

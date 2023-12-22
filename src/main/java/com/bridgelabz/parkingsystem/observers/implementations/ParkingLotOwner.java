@@ -1,6 +1,8 @@
-package com.bridgelabz.parkingsystem;
+package com.bridgelabz.parkingsystem.observers.implementations;
 
-public class ParkingLotOwner {
+import com.bridgelabz.parkingsystem.observers.Observer;
+
+public class ParkingLotOwner implements Observer {
     private boolean spaceAvailableBoarSign;
     public void setSpaceAvailableBoarSign(boolean value){
         this.spaceAvailableBoarSign = value;
