@@ -58,4 +58,18 @@ public class ParkingLotTest {
         parkingLot.unparkCar(driver1);
         assertTrue(airportSecurityPersonal.getSpaceAvailableBoardSign());
     }
+
+    @Test
+    public void findParkingSpaceByAttendant() {
+        parkingLot = new ParkingLot(2);
+        Driver driver1 = new Driver("Sumit" , "DR2380" , "1234567890");
+        int parkingSlot = parkingLot.findParkingSpaceByAttendant();
+        parkingLot.parkCar(driver1);
+        assertEquals(0 , parkingSlot);
+        Driver driver2 = new Driver("Amit" , "KC1703" , "7894561230");
+        parkingSlot = parkingLot.findParkingSpaceByAttendant();
+        assertEquals(1 , parkingSlot);
+        parkingSlot = parkingLot.findParkingSpaceByAttendant();
+        assertEquals(-1 , parkingSlot);
+    }
 }

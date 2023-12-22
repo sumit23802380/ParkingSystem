@@ -49,6 +49,10 @@ public class ParkingLot {
         return false;
     }
 
+    public int findParkingSpaceByAttendant() {
+        return 0;
+    }
+
     public boolean unparkCar(Driver driver) {
         String carNumber = driver.carNumber;
         if (carParkingMap.containsKey(carNumber)) {
