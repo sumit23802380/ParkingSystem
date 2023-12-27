@@ -6,8 +6,10 @@ import com.bridgelabz.parkingsystem.observers.implementations.ParkingLotOwner;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import java.time.LocalDateTime;
 
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 public class ParkingLotTest {
     ParkingLot parkingLot;
     Observer parkingLotOwner;
@@ -84,5 +86,14 @@ public class ParkingLotTest {
         Driver driver2 = new Driver("Amit" , "KC1703" , "7894561230");
         carParkedSlot = parkingLot.findParkedCarSlotByDriver(driver2);
         assertEquals(-1 , carParkedSlot);
+    }
+
+    @Test
+    public void testNotifyCarParked() {
+        ParkingLotOwner mockParkingLotOwner = mock(ParkingLotOwner.class);
+        parkingLot = new ParkingLot(1);
+        Driver driver1 = new Driver("Sumit" , "DR2380" , "1234567890");
+        parkingLot.parkCar(driver1);
+        verify(mockParkingLotOwner, times(1)).notifyCarParked(eq(driver1.carNumber), any(LocalDateTime.class));
     }
 }
