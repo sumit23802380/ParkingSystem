@@ -14,6 +14,6 @@ public class ParkingLotOwner implements Observer {
     }
 
     public void notifyCarParked(String carNumber , LocalDateTime carParkingTime){
-
+        System.out.println("Car "+carNumber + " is parked at time : "+ carParkingTime);
     }
 }

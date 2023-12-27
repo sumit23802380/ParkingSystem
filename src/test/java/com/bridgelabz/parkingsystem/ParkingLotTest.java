@@ -1,6 +1,5 @@
 package com.bridgelabz.parkingsystem;
 
-import com.bridgelabz.parkingsystem.observers.Observer;
 import com.bridgelabz.parkingsystem.observers.implementations.AirportSecurityPersonal;
 import com.bridgelabz.parkingsystem.observers.implementations.ParkingLotOwner;
 import org.junit.Before;
@@ -12,13 +11,14 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 public class ParkingLotTest {
     ParkingLot parkingLot;
-    Observer parkingLotOwner;
-    Observer airportSecurityPersonal;
+    ParkingLotOwner parkingLotOwner;
+    AirportSecurityPersonal airportSecurityPersonal;
     @Before
     public void setUp() {
         parkingLotOwner = new ParkingLotOwner();
         airportSecurityPersonal = new AirportSecurityPersonal();
         parkingLot = new ParkingLot(1);
+        parkingLot.setParkingLotOwner(parkingLotOwner);
         parkingLot.addObserver(parkingLotOwner);
         parkingLot.addObserver(airportSecurityPersonal);
     }
@@ -64,6 +64,7 @@ public class ParkingLotTest {
     @Test
     public void testFindParkingSpaceByAttendant() {
         parkingLot = new ParkingLot(2);
+        parkingLot.setParkingLotOwner(parkingLotOwner);
         Driver driver1 = new Driver("Sumit" , "DR2380" , "1234567890");
         int parkingSlot = parkingLot.findParkingSpaceByAttendant();
         parkingLot.parkCar(driver1);
@@ -78,7 +79,6 @@ public class ParkingLotTest {
 
     @Test
     public void testFindParkedCarSlotByDriver() {
-        parkingLot = new ParkingLot(1);
         Driver driver1 = new Driver("Sumit" , "DR2380" , "1234567890");
         parkingLot.parkCar(driver1);
         int carParkedSlot = parkingLot.findParkedCarSlotByDriver(driver1);
@@ -92,6 +92,7 @@ public class ParkingLotTest {
     public void testNotifyCarParked() {
         ParkingLotOwner mockParkingLotOwner = mock(ParkingLotOwner.class);
         parkingLot = new ParkingLot(1);
+        parkingLot.setParkingLotOwner(mockParkingLotOwner);
         Driver driver1 = new Driver("Sumit" , "DR2380" , "1234567890");
         parkingLot.parkCar(driver1);
         verify(mockParkingLotOwner, times(1)).notifyCarParked(eq(driver1.carNumber), any(LocalDateTime.class));

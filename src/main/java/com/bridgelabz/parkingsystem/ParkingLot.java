@@ -1,9 +1,9 @@
 package com.bridgelabz.parkingsystem;
 
 import com.bridgelabz.parkingsystem.observers.Observer;
-import com.bridgelabz.parkingsystem.observers.implementations.AirportSecurityPersonal;
 import com.bridgelabz.parkingsystem.observers.implementations.ParkingLotOwner;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -15,6 +15,7 @@ public class ParkingLot {
     private boolean[] freeSpaces;
     public List<Observer> observerList;
     public Map<String, Integer> carParkingMap;
+    ParkingLotOwner parkingLotOwner;
 
     ParkingLot(int totalCapacity) {
         this.totalCapacity = totalCapacity;
@@ -25,6 +26,9 @@ public class ParkingLot {
         for (int i = 0; i < totalCapacity; i++) {
             freeSpaces[i] = true;
         }
+    }
+    public void setParkingLotOwner(ParkingLotOwner parkingLotOwner){
+        this.parkingLotOwner = parkingLotOwner;
     }
     public void addObserver(Observer observer){
         observerList.add(observer);
@@ -38,6 +42,7 @@ public class ParkingLot {
             int parkingSlot = findParkingSpaceByAttendant();
             carParkingMap.put(driver.carNumber, parkingSlot);
             freeSpaces[parkingSlot] = false;
+            parkingLotOwner.notifyCarParked(driver.carNumber, LocalDateTime.now());
             if (availableCapacity == 0) {
                 notifyObserversSpaceAvailableBoardSign(false);
             }
