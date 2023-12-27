@@ -39,7 +39,7 @@ public class ParkingLot {
     public boolean parkCar(Driver driver) {
         if (availableCapacity > 0) {
             availableCapacity--;
-            int parkingSlot = findParkingSpaceByAttendant();
+            int parkingSlot = findParkingSpaceByAttendant(driver.handiCap);
             carParkingMap.put(driver.carNumber, parkingSlot);
             freeSpaces[parkingSlot] = false;
             parkingLotOwner.notifyCarParked(driver.carNumber, LocalDateTime.now());
@@ -51,8 +51,15 @@ public class ParkingLot {
         return false;
     }
 
-    public int findParkingSpaceByAttendant() {
-        for(int i=0;i<freeSpaces.length;i++){
+    public int findParkingSpaceByAttendant(boolean handiCap) {
+        if(handiCap){
+            for(int i=0;i<freeSpaces.length;i++){
+                if(freeSpaces[i]){
+                    return i;
+                }
+            }
+        }
+        for(int i= freeSpaces.length-1;i>=0;i--){
             if(freeSpaces[i]){
                 return i;
             }

@@ -66,14 +66,14 @@ public class ParkingLotTest {
         parkingLot = new ParkingLot(2);
         parkingLot.setParkingLotOwner(parkingLotOwner);
         Driver driver1 = new Driver("Sumit" , "DR2380" , "1234567890");
-        int parkingSlot = parkingLot.findParkingSpaceByAttendant();
+        int parkingSlot = parkingLot.findParkingSpaceByAttendant(driver1.handiCap);
         parkingLot.parkCar(driver1);
         assertEquals(0 , parkingSlot);
         Driver driver2 = new Driver("Amit" , "KC1703" , "7894561230");
-        parkingSlot = parkingLot.findParkingSpaceByAttendant();
+        parkingSlot = parkingLot.findParkingSpaceByAttendant(driver1.handiCap);
         parkingLot.parkCar(driver2);
         assertEquals(1 , parkingSlot);
-        parkingSlot = parkingLot.findParkingSpaceByAttendant();
+        parkingSlot = parkingLot.findParkingSpaceByAttendant(driver1.handiCap);
         assertEquals(-1 , parkingSlot);
     }
 
@@ -96,5 +96,20 @@ public class ParkingLotTest {
         Driver driver1 = new Driver("Sumit" , "DR2380" , "1234567890");
         parkingLot.parkCar(driver1);
         verify(mockParkingLotOwner, times(1)).notifyCarParked(eq(driver1.carNumber), any(LocalDateTime.class));
+    }
+
+    @Test
+    public void testHandiCapDriverParkedNear(){
+        parkingLot = new ParkingLot(3);
+        parkingLot.setParkingLotOwner(parkingLotOwner);
+        Driver driver1 = new Driver("Sumit" , "DR2380" , "1234567890");
+        parkingLot.parkCar(driver1);
+        int carParkedSlot = parkingLot.findParkedCarSlotByDriver(driver1);
+        assertEquals(2 , carParkedSlot);
+        Driver driver2 = new Driver("Anil" , "KC1703" , "7894561230");
+        driver2.handiCap = true;
+        parkingLot.parkCar(driver2);
+        carParkedSlot = parkingLot.findParkedCarSlotByDriver(driver2);
+        assertEquals(0 , carParkedSlot);
     }
 }
