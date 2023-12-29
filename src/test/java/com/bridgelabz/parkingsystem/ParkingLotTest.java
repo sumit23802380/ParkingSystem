@@ -66,14 +66,14 @@ public class ParkingLotTest {
         parkingLot = new ParkingLot(2);
         parkingLot.setParkingLotOwner(parkingLotOwner);
         Driver driver1 = new Driver("Sumit" , "DR2380" , "1234567890");
-        int parkingSlot = parkingLot.findParkingSpaceByAttendant(driver1.handiCap);
+        int parkingSlot = parkingLot.findParkingSpaceByAttendant(driver1.handiCap , driver1.largeCar);
         parkingLot.parkCar(driver1);
-        assertEquals(0 , parkingSlot);
-        Driver driver2 = new Driver("Amit" , "KC1703" , "7894561230");
-        parkingSlot = parkingLot.findParkingSpaceByAttendant(driver1.handiCap);
-        parkingLot.parkCar(driver2);
         assertEquals(1 , parkingSlot);
-        parkingSlot = parkingLot.findParkingSpaceByAttendant(driver1.handiCap);
+        Driver driver2 = new Driver("Amit" , "KC1703" , "7894561230");
+        parkingSlot = parkingLot.findParkingSpaceByAttendant(driver2.handiCap , driver2.largeCar);
+        parkingLot.parkCar(driver2);
+        assertEquals(0 , parkingSlot);
+        parkingSlot = parkingLot.findParkingSpaceByAttendant(driver1.handiCap , driver1.largeCar);
         assertEquals(-1 , parkingSlot);
     }
 

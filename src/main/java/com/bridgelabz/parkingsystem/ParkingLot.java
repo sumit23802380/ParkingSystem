@@ -27,19 +27,22 @@ public class ParkingLot {
             freeSpaces[i] = true;
         }
     }
-    public void setParkingLotOwner(ParkingLotOwner parkingLotOwner){
+
+    public void setParkingLotOwner(ParkingLotOwner parkingLotOwner) {
         this.parkingLotOwner = parkingLotOwner;
     }
-    public void addObserver(Observer observer){
+
+    public void addObserver(Observer observer) {
         observerList.add(observer);
-        if(availableCapacity > 0){
+        if (availableCapacity > 0) {
             observer.setSpaceAvailableBoarSign(true);
         }
     }
+
     public boolean parkCar(Driver driver) {
         if (availableCapacity > 0) {
             availableCapacity--;
-            int parkingSlot = findParkingSpaceByAttendant(driver.handiCap);
+            int parkingSlot = findParkingSpaceByAttendant(driver.handiCap, driver.largeCar);
             carParkingMap.put(driver.carNumber, parkingSlot);
             freeSpaces[parkingSlot] = false;
             parkingLotOwner.notifyCarParked(driver.carNumber, LocalDateTime.now());
@@ -50,25 +53,25 @@ public class ParkingLot {
         }
         return false;
     }
-
-    public int findParkingSpaceByAttendant(boolean handiCap) {
-        if(handiCap){
-            for(int i=0;i<freeSpaces.length;i++){
-                if(freeSpaces[i]){
+    public int findParkingSpaceByAttendant(boolean handiCap, boolean largeCar) {
+        if (handiCap) {
+            for (int i = 0; i < freeSpaces.length; i++) {
+                if (freeSpaces[i]) {
                     return i;
                 }
             }
         }
-        for(int i= freeSpaces.length-1;i>=0;i--){
-            if(freeSpaces[i]){
+        for (int i = freeSpaces.length - ((largeCar) ? 2 : 1); i >= 0; i--) {
+            if(!largeCar && freeSpaces[i]){
+                return i;
+            }
+            if (largeCar && freeSpaces[i] && freeSpaces[i + 1]) {
                 return i;
             }
         }
         return -1;
     }
-    public int findParkingSpaceByAttendant(boolean handiCap , boolean largeCar) {
-        return -1;
-    }
+
     public int findParkedCarSlotByDriver(Driver driver) {
         String carNumber = driver.carNumber;
         if (carParkingMap.containsKey(carNumber)) {
