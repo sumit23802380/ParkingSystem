@@ -127,7 +127,7 @@ public class ParkingLotTest {
     }
 
     @Test
-    public void testtLocationOfParkedWhiteCars(){
+    public void testLocationOfParkedWhiteCars(){
         parkingLot = new ParkingLot(3);
         parkingLot.setParkingLotOwner(parkingLotOwner);
         Driver driver1 = new Driver("Sumit" , new Car("DR2380" , "White" , "Toyota") , "1234567890");

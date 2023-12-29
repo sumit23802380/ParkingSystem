@@ -14,7 +14,7 @@ public class ParkingLot {
     public int availableCapacity;
     private boolean[] freeSpaces;
     public List<Observer> observerList;
-    public Map<String, Integer> carParkingMap;
+    public Map<Car, Integer> carParkingMap;
     ParkingLotOwner parkingLotOwner;
 
     ParkingLot(int totalCapacity) {
@@ -43,7 +43,7 @@ public class ParkingLot {
         if (availableCapacity > 0) {
             availableCapacity--;
             int parkingSlot = findParkingSpaceByAttendant(driver.handiCap, driver.largeCar);
-            carParkingMap.put(driver.car.number, parkingSlot);
+            carParkingMap.put(driver.car, parkingSlot);
             freeSpaces[parkingSlot] = false;
             parkingLotOwner.notifyCarParked(driver.car.number, LocalDateTime.now());
             if (availableCapacity == 0) {
@@ -73,19 +73,18 @@ public class ParkingLot {
     }
 
     public int findParkedCarSlotByDriver(Driver driver) {
-        String carNumber = driver.car.number;
-        if (carParkingMap.containsKey(carNumber)) {
-            return carParkingMap.get(carNumber);
+        Car car = driver.car;
+        if (carParkingMap.containsKey(car)) {
+            return carParkingMap.get(car);
         }
         return -1;
     }
 
     public boolean unparkCar(Driver driver) {
-        String carNumber = driver.car.number;
-        if (carParkingMap.containsKey(carNumber)) {
-            Integer slotNumber = carParkingMap.get(carNumber);
+        if (carParkingMap.containsKey(driver.car)) {
+            Integer slotNumber = carParkingMap.get(driver.car);
             freeSpaces[slotNumber] = true;
-            carParkingMap.remove(carNumber);
+            carParkingMap.remove(driver.car);
             availableCapacity++;
             if (availableCapacity > 0) {
                 notifyObserversSpaceAvailableBoardSign(true);
@@ -100,4 +99,21 @@ public class ParkingLot {
             observer.setSpaceAvailableBoarSign(value);
         }
     }
+
+    public List<Integer> getLocationsOfParkedWhiteCars() {
+        List<Integer> locations = new ArrayList<>();
+        for (Map.Entry<Car, Integer> entry : carParkingMap.entrySet()) {
+            Car car = entry.getKey();
+            int parkingSlot = entry.getValue();
+            if (isWhiteCar(car)) {
+                locations.add(parkingSlot);
+            }
+        }
+        return locations;
+    }
+
+    private boolean isWhiteCar(Car car) {
+        return car.color.equalsIgnoreCase("white");
+    }
+
 }
