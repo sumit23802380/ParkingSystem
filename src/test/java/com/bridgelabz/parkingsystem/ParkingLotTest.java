@@ -6,6 +6,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -122,5 +124,21 @@ public class ParkingLotTest {
         parkingLot.parkCar(driver1);
         int carParkedSlot = parkingLot.findParkedCarSlotByDriver(driver1);
         assertEquals(1 , carParkedSlot);
+    }
+
+    @Test
+    public void testtLocationOfParkedWhiteCars(){
+        parkingLot = new ParkingLot(3);
+        parkingLot.setParkingLotOwner(parkingLotOwner);
+        Driver driver1 = new Driver("Sumit" , new Car("DR2380" , "White" , "Toyota") , "1234567890");
+        parkingLot.parkCar(driver1);
+        Driver driver2 = new Driver("Amit" ,  new Car("KC1703" , "Blue" , "BMW") , "7894561230");
+        driver2.handiCap = true;
+        parkingLot.parkCar(driver2);
+        Police police = new Police();
+        List<Integer> locationOfParkedWhiteCars = police.getLocationOfParkedWhiteCars(parkingLot);
+        List<Integer> expectedLocationOfParkedWhiteCars = new ArrayList<>();
+        expectedLocationOfParkedWhiteCars.add(2);
+        assertIterableEquals(expectedLocationOfParkedWhiteCars, locationOfParkedWhiteCars);
     }
 }
