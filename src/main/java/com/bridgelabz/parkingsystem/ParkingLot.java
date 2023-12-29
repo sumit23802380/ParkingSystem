@@ -43,9 +43,9 @@ public class ParkingLot {
         if (availableCapacity > 0) {
             availableCapacity--;
             int parkingSlot = findParkingSpaceByAttendant(driver.handiCap, driver.largeCar);
-            carParkingMap.put(driver.carNumber, parkingSlot);
+            carParkingMap.put(driver.car.number, parkingSlot);
             freeSpaces[parkingSlot] = false;
-            parkingLotOwner.notifyCarParked(driver.carNumber, LocalDateTime.now());
+            parkingLotOwner.notifyCarParked(driver.car.number, LocalDateTime.now());
             if (availableCapacity == 0) {
                 notifyObserversSpaceAvailableBoardSign(false);
             }
@@ -73,7 +73,7 @@ public class ParkingLot {
     }
 
     public int findParkedCarSlotByDriver(Driver driver) {
-        String carNumber = driver.carNumber;
+        String carNumber = driver.car.number;
         if (carParkingMap.containsKey(carNumber)) {
             return carParkingMap.get(carNumber);
         }
@@ -81,7 +81,7 @@ public class ParkingLot {
     }
 
     public boolean unparkCar(Driver driver) {
-        String carNumber = driver.carNumber;
+        String carNumber = driver.car.number;
         if (carParkingMap.containsKey(carNumber)) {
             Integer slotNumber = carParkingMap.get(carNumber);
             freeSpaces[slotNumber] = true;
