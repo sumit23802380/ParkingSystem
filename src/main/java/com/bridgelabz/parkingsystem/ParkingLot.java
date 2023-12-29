@@ -66,6 +66,9 @@ public class ParkingLot {
         }
         return -1;
     }
+    public int findParkingSpaceByAttendant(boolean handiCap , boolean largeCar) {
+        return -1;
+    }
     public int findParkedCarSlotByDriver(Driver driver) {
         String carNumber = driver.carNumber;
         if (carParkingMap.containsKey(carNumber)) {

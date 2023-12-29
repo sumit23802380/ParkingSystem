@@ -112,4 +112,15 @@ public class ParkingLotTest {
         carParkedSlot = parkingLot.findParkedCarSlotByDriver(driver2);
         assertEquals(0 , carParkedSlot);
     }
+
+    @Test
+    public void testFindParkingSpaceByAttendantWithLargeCar(){
+        parkingLot = new ParkingLot(3);
+        parkingLot.setParkingLotOwner(parkingLotOwner);
+        Driver driver1 = new Driver("Sumit" , "DR2380" , "1234567890");
+        driver1.setLargeCar(true);
+        parkingLot.parkCar(driver1);
+        int carParkedSlot = parkingLot.findParkedCarSlotByDriver(driver1);
+        assertEquals(1 , carParkedSlot);
+    }
 }
