@@ -12,4 +12,8 @@ public class Police {
     List<ParkedCarInfo> getParkedCarInfoBMWCars(ParkingLot parkingLot){
         return parkingLot.getParkedCarInfo("Anycolor" , "BMW");
     }
+
+    public List<ParkedCarInfo> getParkedCarInfoBefore30Mins(ParkingLot parkingLot) {
+        return parkingLot.getParkedCarInfoParkedBefore();
+    }
 }
