@@ -120,6 +120,13 @@ public class ParkingLot {
 
     public List<ParkedCarInfo> getParkedCarInfo(String color, String company) {
         List<ParkedCarInfo> parkedCarInfos = new ArrayList<>();
+        for (Map.Entry<Car, Integer> entry : carParkingMap.entrySet()) {
+            Car car = entry.getKey();
+            int parkingSlot = entry.getValue();
+            if (car.color.equalsIgnoreCase(color) && car.company.equalsIgnoreCase(company)) {
+                parkedCarInfos.add(new ParkedCarInfo(parkingSlot , car.number , parkingAttendant.name));
+            }
+        }
         return parkedCarInfos;
     }
 }

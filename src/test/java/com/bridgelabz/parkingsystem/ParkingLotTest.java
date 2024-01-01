@@ -154,8 +154,8 @@ public class ParkingLotTest {
         parkingLot.parkCar(driver2);
         Police police = new Police();
         List<ParkedCarInfo> parkedCarInfos = police.getParkedCarInfo(parkingLot);
-        List<ParkedCarInfo> expectedLocationOfParkedWhiteCars = new ArrayList<>();
-        expectedLocationOfParkedWhiteCars.add(new ParkedCarInfo(2 , "DR2380" , "Karan"));
-        assertIterableEquals(expectedLocationOfParkedWhiteCars, parkedCarInfos);
+        List<ParkedCarInfo> expectedParkedCarInfos = new ArrayList<>();
+        expectedParkedCarInfos.add(new ParkedCarInfo(2 , "DR2380" , "Karan"));
+        assertIterableEquals(expectedParkedCarInfos, parkedCarInfos);
     }
 }
