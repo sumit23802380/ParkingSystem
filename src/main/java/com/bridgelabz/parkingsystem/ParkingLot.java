@@ -45,7 +45,7 @@ public class ParkingLot {
         if (availableCapacity > 0) {
             availableCapacity--;
             int parkingSlot = findParkingSpaceByAttendant(driver.handiCap, driver.largeCar);
-            carParkingMap.put(driver.car, new ParkedCarInfo(parkingSlot , driver.car.number , parkingAttendant.name , LocalDateTime.now()));
+            carParkingMap.put(driver.car, new ParkedCarInfo(parkingSlot , driver.car.number , parkingAttendant.name , LocalDateTime.now() , driver));
             freeSpaces[parkingSlot] = false;
             parkingLotOwner.notifyCarParked(driver.car.number, LocalDateTime.now());
             if (availableCapacity == 0) {
@@ -124,7 +124,7 @@ public class ParkingLot {
             Car car = entry.getKey();
             int parkingSlot = entry.getValue().parkingSlot;
             if ((car.color.equalsIgnoreCase(color) || color.equalsIgnoreCase("Anycolor")) && car.company.equalsIgnoreCase(company)) {
-                parkedCarInfos.add(new ParkedCarInfo(parkingSlot , car.number , parkingAttendant.name, entry.getValue().parkingTime));
+                parkedCarInfos.add(new ParkedCarInfo(parkingSlot , car.number , parkingAttendant.name, entry.getValue().parkingTime , entry.getValue().driver));
             }
         }
         return parkedCarInfos;
@@ -140,5 +140,17 @@ public class ParkingLot {
             }
         }
         return parkedCarInfos;
+    }
+
+    public List<Integer> getParkedCarInfoDriverIsHandicap(){
+        List<Integer> locationsOfHandicapDriverCars = new ArrayList<>();
+        LocalDateTime currentTime = LocalDateTime.now();
+        for (Map.Entry<Car, ParkedCarInfo> entry : carParkingMap.entrySet()) {
+            ParkedCarInfo parkedCarInfo = entry.getValue();
+            if (parkedCarInfo.driver.handiCap) {
+                locationsOfHandicapDriverCars.add(parkedCarInfo.parkingSlot);
+            }
+        }
+        return locationsOfHandicapDriverCars;
     }
 }

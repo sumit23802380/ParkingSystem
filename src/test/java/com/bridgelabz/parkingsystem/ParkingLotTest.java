@@ -153,7 +153,6 @@ public class ParkingLotTest {
         parkingLot = new ParkingLot(3);
         parkingLot.setParkingLotOwner(parkingLotOwner);
         parkingLot.setParkingAttendant(new ParkingAttendant("Karan"));
-        parkingLot.setParkingAttendant(new ParkingAttendant("Karan"));
         Driver driver1 = new Driver("Sumit" , new Car("DR2380" , "Blue" , "Toyota") , "1234567890");
         parkingLot.parkCar(driver1);
         Driver driver2 = new Driver("Amit" ,  new Car("KC1703" , "Blue" , "BMW") , "7894561230");
@@ -162,7 +161,7 @@ public class ParkingLotTest {
         Police police = new Police();
         List<ParkedCarInfo> parkedCarInfos = police.getParkedCarInfoBlueToyotaCars(parkingLot);
         List<ParkedCarInfo> expectedParkedCarInfos = new ArrayList<>();
-        expectedParkedCarInfos.add(new ParkedCarInfo(2 , "DR2380" , "Karan" , LocalDateTime.now()));
+        expectedParkedCarInfos.add(new ParkedCarInfo(2 , "DR2380" , "Karan" , LocalDateTime.now() , driver1));
         assertIterableEquals(expectedParkedCarInfos, parkedCarInfos);
     }
 
@@ -180,7 +179,7 @@ public class ParkingLotTest {
         Police police = new Police();
         List<ParkedCarInfo> parkedCarInfos = police.getParkedCarInfoBMWCars(parkingLot);
         List<ParkedCarInfo> expectedParkedCarInfos = new ArrayList<>();
-        expectedParkedCarInfos.add(new ParkedCarInfo(0 , "KC1703" , "Karan" , LocalDateTime.now()));
+        expectedParkedCarInfos.add(new ParkedCarInfo(0 , "KC1703" , "Karan" , LocalDateTime.now() , driver2));
         assertIterableEquals(expectedParkedCarInfos, parkedCarInfos);
     }
 
@@ -197,8 +196,27 @@ public class ParkingLotTest {
         Police police = new Police();
         List<ParkedCarInfo> parkedCarInfos = police.getParkedCarInfoBefore30Mins(parkingLot);
         List<ParkedCarInfo> expectedParkedCarInfos = new ArrayList<>();
-        expectedParkedCarInfos.add(new ParkedCarInfo(0 , "KC1703" , "Karan" , LocalDateTime.now()));
-        expectedParkedCarInfos.add(new ParkedCarInfo(2 , "DR2380" , "Karan" , LocalDateTime.now()));
+        expectedParkedCarInfos.add(new ParkedCarInfo(2 , "DR2380" , "Karan" , LocalDateTime.now() , driver1));
+        expectedParkedCarInfos.add(new ParkedCarInfo(0 , "KC1703" , "Karan" , LocalDateTime.now() , driver2));
+        System.out.println(parkedCarInfos);
         assertIterableEquals(expectedParkedCarInfos, parkedCarInfos);
     }
+
+    @Test
+    public void testGetParkedCarInfoDriverIsHandicap(){
+        parkingLot = new ParkingLot(3);
+        parkingLot.setParkingLotOwner(parkingLotOwner);
+        parkingLot.setParkingAttendant(new ParkingAttendant("Karan"));
+        Driver driver1 = new Driver("Sumit" , new Car("DR2380" , "Blue" , "Toyota") , "1234567890");
+        parkingLot.parkCar(driver1);
+        Driver driver2 = new Driver("Amit" ,  new Car("KC1703" , "Blue" , "BMW") , "7894561230");
+        driver2.handiCap = true;
+        parkingLot.parkCar(driver2);
+        Police police = new Police();
+        List<Integer> parkedCarInfoDriverIsHandicapLocations = police.getParkedCarInfoDriverIsHandicap(parkingLot);
+        List<Integer> expectedParkedCarInfoDriverIsHandicapLocations = new ArrayList<>();
+        expectedParkedCarInfoDriverIsHandicapLocations.add(0);
+        assertIterableEquals(expectedParkedCarInfoDriverIsHandicapLocations, parkedCarInfoDriverIsHandicapLocations);
+    }
+
 }

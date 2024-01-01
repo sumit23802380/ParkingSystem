@@ -16,4 +16,8 @@ public class Police {
     public List<ParkedCarInfo> getParkedCarInfoBefore30Mins(ParkingLot parkingLot) {
         return parkingLot.getParkedCarInfoParkedBefore(30);
     }
+
+    public List<Integer> getParkedCarInfoDriverIsHandicap(ParkingLot parkingLot) {
+        return parkingLot.getParkedCarInfoDriverIsHandicap();
+    }
 }
