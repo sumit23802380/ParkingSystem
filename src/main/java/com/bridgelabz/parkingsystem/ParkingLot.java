@@ -155,6 +155,10 @@ public class ParkingLot {
     }
     public List<ParkedCarInfo> getAllParkedCarInfo() {
         List<ParkedCarInfo> parkedCarInfos = new ArrayList<>();
+        for (Map.Entry<Car, ParkedCarInfo> entry : carParkingMap.entrySet()) {
+            ParkedCarInfo parkedCarInfo = entry.getValue();
+            parkedCarInfos.add(parkedCarInfo);
+        }
         return parkedCarInfos;
     }
 }
