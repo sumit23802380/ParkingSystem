@@ -16,7 +16,7 @@ public class ParkingLot {
     public List<Observer> observerList;
     public Map<Car, Integer> carParkingMap;
     ParkingLotOwner parkingLotOwner;
-
+    ParkingAttendant parkingAttendant;
     ParkingLot(int totalCapacity) {
         this.totalCapacity = totalCapacity;
         this.availableCapacity = totalCapacity;
@@ -31,7 +31,9 @@ public class ParkingLot {
     public void setParkingLotOwner(ParkingLotOwner parkingLotOwner) {
         this.parkingLotOwner = parkingLotOwner;
     }
-
+    public void setParkingAttendant(ParkingAttendant parkingAttendant){
+        this.parkingAttendant = parkingAttendant;
+    }
     public void addObserver(Observer observer) {
         observerList.add(observer);
         if (availableCapacity > 0) {
@@ -116,4 +118,8 @@ public class ParkingLot {
         return car.color.equalsIgnoreCase("white");
     }
 
+    public List<ParkedCarInfo> getParkedCarInfo(String color, String company) {
+        List<ParkedCarInfo> parkedCarInfos = new ArrayList<>();
+        return parkedCarInfos;
+    }
 }

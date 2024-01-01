@@ -141,4 +141,21 @@ public class ParkingLotTest {
         expectedLocationOfParkedWhiteCars.add(2);
         assertIterableEquals(expectedLocationOfParkedWhiteCars, locationOfParkedWhiteCars);
     }
+
+    @Test
+    public void testGetParkedCarInfo(){
+        parkingLot = new ParkingLot(3);
+        parkingLot.setParkingLotOwner(parkingLotOwner);
+        parkingLot.setParkingAttendant(new ParkingAttendant("Karan"));
+        Driver driver1 = new Driver("Sumit" , new Car("DR2380" , "Blue" , "Toyota") , "1234567890");
+        parkingLot.parkCar(driver1);
+        Driver driver2 = new Driver("Amit" ,  new Car("KC1703" , "Blue" , "BMW") , "7894561230");
+        driver2.handiCap = true;
+        parkingLot.parkCar(driver2);
+        Police police = new Police();
+        List<ParkedCarInfo> parkedCarInfos = police.getParkedCarInfo(parkingLot);
+        List<ParkedCarInfo> expectedLocationOfParkedWhiteCars = new ArrayList<>();
+        expectedLocationOfParkedWhiteCars.add(new ParkedCarInfo(2 , "DR2380" , "Karan"));
+        assertIterableEquals(expectedLocationOfParkedWhiteCars, parkedCarInfos);
+    }
 }
