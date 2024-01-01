@@ -143,7 +143,7 @@ public class ParkingLotTest {
     }
 
     @Test
-    public void testGetParkedCarInfo(){
+    public void testGetParkedCarInfoBlueToyotaCars(){
         parkingLot = new ParkingLot(3);
         parkingLot.setParkingLotOwner(parkingLotOwner);
         parkingLot.setParkingAttendant(new ParkingAttendant("Karan"));
@@ -153,9 +153,26 @@ public class ParkingLotTest {
         driver2.handiCap = true;
         parkingLot.parkCar(driver2);
         Police police = new Police();
-        List<ParkedCarInfo> parkedCarInfos = police.getParkedCarInfo(parkingLot);
+        List<ParkedCarInfo> parkedCarInfos = police.getParkedCarInfoBlueToyotaCars(parkingLot);
         List<ParkedCarInfo> expectedParkedCarInfos = new ArrayList<>();
         expectedParkedCarInfos.add(new ParkedCarInfo(2 , "DR2380" , "Karan"));
+        assertIterableEquals(expectedParkedCarInfos, parkedCarInfos);
+    }
+
+    @Test
+    public void testGetParkedCarInfoBMWCars(){
+        parkingLot = new ParkingLot(3);
+        parkingLot.setParkingLotOwner(parkingLotOwner);
+        parkingLot.setParkingAttendant(new ParkingAttendant("Karan"));
+        Driver driver1 = new Driver("Sumit" , new Car("DR2380" , "Blue" , "Toyota") , "1234567890");
+        parkingLot.parkCar(driver1);
+        Driver driver2 = new Driver("Amit" ,  new Car("KC1703" , "Blue" , "BMW") , "7894561230");
+        driver2.handiCap = true;
+        parkingLot.parkCar(driver2);
+        Police police = new Police();
+        List<ParkedCarInfo> parkedCarInfos = police.getParkedCarInfoBMWCars(parkingLot);
+        List<ParkedCarInfo> expectedParkedCarInfos = new ArrayList<>();
+        expectedParkedCarInfos.add(new ParkedCarInfo(0 , "KC1703" , "Karan"));
         assertIterableEquals(expectedParkedCarInfos, parkedCarInfos);
     }
 }

@@ -123,7 +123,7 @@ public class ParkingLot {
         for (Map.Entry<Car, Integer> entry : carParkingMap.entrySet()) {
             Car car = entry.getKey();
             int parkingSlot = entry.getValue();
-            if (car.color.equalsIgnoreCase(color) && car.company.equalsIgnoreCase(company)) {
+            if ((car.color.equalsIgnoreCase(color) || color.equalsIgnoreCase("Anycolor")) && car.company.equalsIgnoreCase(company)) {
                 parkedCarInfos.add(new ParkedCarInfo(parkingSlot , car.number , parkingAttendant.name));
             }
         }

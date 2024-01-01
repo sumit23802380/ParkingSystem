@@ -6,7 +6,10 @@ public class Police {
     List<Integer> getLocationOfParkedWhiteCars(ParkingLot parkingLot){
         return parkingLot.getLocationsOfParkedWhiteCars();
     }
-    List<ParkedCarInfo> getParkedCarInfo(ParkingLot parkingLot){
+    List<ParkedCarInfo> getParkedCarInfoBlueToyotaCars(ParkingLot parkingLot){
         return parkingLot.getParkedCarInfo("Blue" , "Toyota");
+    }
+    List<ParkedCarInfo> getParkedCarInfoBMWCars(ParkingLot parkingLot){
+        return parkingLot.getParkedCarInfo("Anycolor" , "BMW");
     }
 }
