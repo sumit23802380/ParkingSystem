@@ -130,8 +130,15 @@ public class ParkingLot {
         return parkedCarInfos;
     }
 
-    public List<ParkedCarInfo> getParkedCarInfoParkedBefore() {
+    public List<ParkedCarInfo> getParkedCarInfoParkedBefore(Integer minutes) {
         List<ParkedCarInfo> parkedCarInfos = new ArrayList<>();
+        LocalDateTime currentTime = LocalDateTime.now();
+        for (Map.Entry<Car, ParkedCarInfo> entry : carParkingMap.entrySet()) {
+            ParkedCarInfo parkedCarInfo = entry.getValue();
+            if (currentTime.minusMinutes(minutes).isBefore(parkedCarInfo.parkingTime)) {
+                parkedCarInfos.add(parkedCarInfo);
+            }
+        }
         return parkedCarInfos;
     }
 }
