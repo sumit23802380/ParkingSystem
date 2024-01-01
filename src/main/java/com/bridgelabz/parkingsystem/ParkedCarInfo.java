@@ -16,6 +16,7 @@ public class ParkedCarInfo {
         this.parkingTime = parkingTime;
         this.driver = driver;
     }
+
     @Override
     public String toString() {
         return "ParkedCarInfo{" +
@@ -23,19 +24,19 @@ public class ParkedCarInfo {
                 ", plateNumber='" + plateNumber + '\'' +
                 ", attendantName='" + attendantName + '\'' +
                 ", parkingTime=" + parkingTime +
+                ", driver=" + driver +
                 '}';
     }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ParkedCarInfo that = (ParkedCarInfo) o;
-        return parkingSlot == that.parkingSlot && Objects.equals(plateNumber, that.plateNumber) && Objects.equals(attendantName, that.attendantName);
+        return parkingSlot == that.parkingSlot && Objects.equals(plateNumber, that.plateNumber) && Objects.equals(attendantName, that.attendantName) && Objects.equals(driver, that.driver);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(parkingSlot, plateNumber, attendantName);
+        return Objects.hash(parkingSlot, plateNumber, attendantName, driver);
     }
 }

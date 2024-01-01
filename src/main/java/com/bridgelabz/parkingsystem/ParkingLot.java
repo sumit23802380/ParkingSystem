@@ -153,4 +153,8 @@ public class ParkingLot {
         }
         return locationsOfHandicapDriverCars;
     }
+    public List<ParkedCarInfo> getAllParkedCarInfo() {
+        List<ParkedCarInfo> parkedCarInfos = new ArrayList<>();
+        return parkedCarInfos;
+    }
 }

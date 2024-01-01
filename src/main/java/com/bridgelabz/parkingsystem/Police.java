@@ -20,4 +20,8 @@ public class Police {
     public List<Integer> getParkedCarInfoDriverIsHandicap(ParkingLot parkingLot) {
         return parkingLot.getParkedCarInfoDriverIsHandicap();
     }
+
+    public List<ParkedCarInfo> getAllParkedCarInfo(ParkingLot parkingLot) {
+        return parkingLot.getAllParkedCarInfo();
+    }
 }
